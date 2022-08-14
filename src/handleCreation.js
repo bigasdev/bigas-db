@@ -1,3 +1,5 @@
+const prompt = require('../src/handlePrompts.js');
+const fs = require('fs');
 
 const createLine = (id) => {
     let newElement = document.createElement('span');
@@ -21,8 +23,8 @@ const removeLine = () => {
     mainId.removeChild(line);
 }
 
-const createCollum = (child) => {
-    addCollum(child);
+const createCollum = (child, type) => {
+    addCollum(child, type);
 }
 
 const baseObject = (id) =>{
@@ -41,7 +43,8 @@ const addCollum = (child, type) => {
     newElement.innerHTML += 
     `<div class="objects">
         <div class="collum">
-        <span>Title!</span>
+        <span>${type}</span>
+        <input id="value"></input>
         </div>
     </div>`;
 
@@ -55,6 +58,11 @@ window.addEventListener('DOMContentLoaded', ()=>{
     mainId = document.getElementById('main');
     createLine("001");
 
+    prompt.initialize();
+    prompt.components.initializeCollum(()=>{
+        console.log(prompt.components.getCollumOption());
+        createCollum(childs[childs.length - 1].childNodes[0], prompt.components.getCollumOption());
+    })
     getAllButtons();
 })
 
@@ -71,6 +79,31 @@ function getAllButtons(){
 
     let createCollumObj = document.getElementById('create-collum');
     createCollumObj?.addEventListener('click', ()=>{
-        createCollum(childs[childs.length - 1].childNodes[0]);
+        var promptObj = prompt.components.getCollum();
+        promptObj.style.display = 'block';
+        promptObj.style.pointerEvents = 'all';
+        //createCollum(childs[childs.length - 1].childNodes[0]);
     })
+
+    let saveFileObj = document.getElementById('save-file');
+    saveFileObj?.addEventListener('click', ()=>{
+        saveFile();
+    })
+}
+
+function saveFile(){
+    var obj = '';
+    childs.forEach(element =>{
+        var s = element.querySelectorAll('#value');
+        obj += '{';
+        s.forEach(val => {
+            obj += `value: ${val.value},`;
+        })
+        obj += '} ';
+    })
+    var json = JSON.stringify(obj);
+    console.log(json);
+    fs.writeFile('testifle.bdata', json, function(err){
+        if(err)return console.log(err);
+    });
 }
