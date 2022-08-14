@@ -1,0 +1,42 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  margin: auto;
+}
+.create-stuff{
+  background-color: aquamarine;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  bottom: 0px;
+  text-align: right;
+}
+.base-object{
+  display: flex;
+  grid-template-columns: repeat(2, 1fr);
+  height: 100px;
+  background-color: rgb(216, 216, 216);
+  border: 1px solid black;
+}
+.base-object .objects{
+  display: grid;
+  grid-auto-flow: column;
+}
+.base-object .default-collum{
+  height: 20px;
+  text-align: center;
+  width: 10rem;
+  background-color: rgb(117, 75, 75);
+  border: 1px solid black;
+}
+.base-object .collum{
+  height: 20px;
+  text-align: center;
+  width: 10rem;
+  background-color: rgb(117, 75, 75);
+  border: 1px solid black;
+}
+.base-object span{
+  font-weight: 500;
+  font-size: 18px;
+}
