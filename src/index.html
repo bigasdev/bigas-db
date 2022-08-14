@@ -6,12 +6,26 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <script src="../src/handleCreation.js"></script>
+  <script src="../src/handlePrompts.js"></script>
   <body>
     <div class="main" id="main">
       <div class="create-stuff">
         <button id="create-collum">Create collum</button>
         <button id="create-line">Create line</button>
         <button id="remove-line">Remove line</button>
+      </div>
+      <div class="collum-prompt">
+        <div class="prompt-box">
+          <h1>Create a new collum!</h1>
+            <select name="type" multiple>
+              <option>string</option>
+              <option>int</option>
+              <option>float</option>
+              <option>type</option>
+            </select>
+          <button id="confirm">Confirm</button>
+          <button id="back">Back</button>
+        </div>
       </div>
     </div>
   </body>
