@@ -1,6 +1,13 @@
 const prompt = require('../src/handlePrompts.js');
 const fs = require('fs');
 
+class Obj{
+    constructor(id, values = []){
+        this.id = id;
+        this.values = values;
+    }
+}
+
 const createLine = (id) => {
     let newElement = document.createElement('span');
     newElement.innerHTML = baseObject(id);
@@ -30,7 +37,7 @@ const createCollum = (child, type) => {
 const baseObject = (id) =>{
     return `<div class="base-object">
     <div class="default-collum">
-      <span id="id">${id}</span>
+      <p id="id">${id}</p>
       <div class="text-area">
         <input type="text" id="text">
       </div>
@@ -43,7 +50,7 @@ const addCollum = (child, type) => {
     newElement.innerHTML += 
     `<div class="objects">
         <div class="collum">
-        <span>${type}</span>
+        <p id="type">${type}</p>
         <input id="value"></input>
         </div>
     </div>`;
@@ -92,16 +99,31 @@ function getAllButtons(){
 }
 
 function saveFile(){
-    var obj = '';
+    var objs = [];
     childs.forEach(element =>{
-        var s = element.querySelectorAll('#value');
-        obj += '{';
-        s.forEach(val => {
-            obj += `value: ${val.value},`;
+        var spans = element.querySelectorAll('span');
+        var id = element.querySelector('#id');
+        var o = new Obj(id.innerHTML);
+        
+        spans.forEach(span =>{
+            var typeValue = span.querySelector('#type');
+            var valueValue = span.querySelector('#value');
+            console.log(typeValue.innerHTML+valueValue.value);
+            var spanObj = {type:typeValue.innerHTML,value:valueValue.value};
+            
+            o.values.push(spanObj);
         })
-        obj += '} ';
+
+        objs.push(o);
+
+        /*obj += '{';
+        s.forEach(val => {
+            obj += `type:${val},
+            value: ${val.value},`;
+        })
+        obj += '} ';*/
     })
-    var json = JSON.stringify(obj);
+    var json = JSON.stringify(objs);
     console.log(json);
     fs.writeFile('testifle.bdata', json, function(err){
         if(err)return console.log(err);

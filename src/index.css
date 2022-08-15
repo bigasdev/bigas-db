@@ -3,6 +3,14 @@ body {
     Arial, sans-serif;
   margin: auto;
 }
+p{
+  margin: 0rem;
+  font-weight: 500;
+  font-size: 14px;
+}
+span{
+  cursor: pointer;
+}
 /* Main page */
 .create-stuff{
   background-color: aquamarine;
@@ -41,7 +49,7 @@ input{
   padding-bottom: 2px;
 }
 .base-object .objects{
-  display: grid;
+  display: flex;
   grid-auto-flow: column;
   padding: 4px 2px 1px 1px;
 }
