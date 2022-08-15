@@ -3,6 +3,7 @@ body {
     Arial, sans-serif;
   margin: auto;
 }
+/* Main page */
 .create-stuff{
   background-color: aquamarine;
   width: 100%;
@@ -25,16 +26,24 @@ body {
   width: 25rem;
   background-color: rgb(36, 151, 151);
 }
+
+/* Components */
+input{
+  width: 70%;
+}
 .base-object{
+  width: 100%;
   display: flex;
   grid-template-columns: repeat(2, 1fr);
   height: 100px;
   background-color: rgb(216, 216, 216);
   border: 1px solid black;
+  padding-bottom: 2px;
 }
 .base-object .objects{
   display: grid;
   grid-auto-flow: column;
+  padding: 4px 2px 1px 1px;
 }
 .base-object .default-collum{
   height: 20px;
@@ -51,6 +60,7 @@ body {
   border: 1px solid black;
 }
 .base-object span{
+  border: 1px solid black;
   font-weight: 500;
   font-size: 18px;
 }
