@@ -31,8 +31,8 @@ const removeLine = () => {
     mainId.removeChild(line);
 }
 
-const createCollum = (child, type, name) => {
-    addCollum(child, type, name);
+const createCollum = (child, type, name, value) => {
+    addCollum(child, type, name, value);
 }
 
 const baseObject = (id) =>{
@@ -46,14 +46,14 @@ const baseObject = (id) =>{
   </div>`;
 }
 
-const addCollum = (child, type, name) => {
+const addCollum = (child, type, name, value) => {
     let newElement = document.createElement('span');
     newElement.innerHTML += 
     `<div class="objects">
         <div class="collum">
         <h1 id="name">${name}</h1>
         <p id="type">${type}</p>
-        <input id="value"></input>
+        <input id="value" placeholder="${value}"></input>
         </div>
     </div>`;
 
@@ -65,7 +65,7 @@ let childs = [];
 
 window.addEventListener('DOMContentLoaded', ()=>{
     mainId = document.getElementById('main');
-    createLine("001");
+    //createLine("001");
 
     prompt.initialize();
     prompt.components.initializeCollum(()=>{
@@ -148,5 +148,12 @@ function loadSaved(path){;
         if(err)throw err;
         let json = JSON.parse(data);
         console.log(json);
+        console.log(json[0].id);
+        json.forEach(j =>{
+            createLine(j.id);
+            j.values.forEach(val =>{
+                createCollum(childs[childs.length - 1].childNodes[0], val.type, val.name, val.value);
+            })
+        })
     })
 }

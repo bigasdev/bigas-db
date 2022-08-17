@@ -30,12 +30,19 @@ const createWindow = () => {
 
 const menu = new Menu();
 menu.append(new MenuItem({
-  label:'Open file',
+  label:'File',
   submenu:[{
     label:'Open file',
     role:'dir',
+    accelerator: process.platform === 'darwin' ? 'Ctrl+Cmd+F' : 'Ctrl+F',
     click: () => {
       openFileDialog();
+    }
+  },{
+    label:'Reload',
+    accelerator: process.platform === 'darwin' ? 'Ctrl+Cmd+R' : 'Ctrl+R',
+    click: () => {
+      BrowserWindow.getFocusedWindow().reload();
     }
   }]
 }))
