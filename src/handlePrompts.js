@@ -5,7 +5,9 @@ function initialize(){
 
 let collumPrompt;
 
+
 var components = {
+    savedPath: '',
     getCollum:function(){
         collumPrompt.querySelector('#back').addEventListener('click', ()=>{
             collumPrompt.style.display = 'none';
@@ -20,6 +22,17 @@ var components = {
     },
     getCollumOption:function(){
         return collumPrompt.querySelector('#type').value;
+    },
+    getCollumName:function(){
+        return collumPrompt.querySelector('#name').value;
+    },
+    renderSaved:function(path){
+        this.savedPath = path;
+        console.log('saved '+this.savedPath);
+    },
+    getSavedPath:function(){
+        console.log(this.savedPath);
+        return this.savedPath;
     }
 }
 

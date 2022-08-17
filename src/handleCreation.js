@@ -1,4 +1,5 @@
 const prompt = require('../src/handlePrompts.js');
+const { ipcRenderer } = require('electron');
 const fs = require('fs');
 
 class Obj{
@@ -30,8 +31,8 @@ const removeLine = () => {
     mainId.removeChild(line);
 }
 
-const createCollum = (child, type) => {
-    addCollum(child, type);
+const createCollum = (child, type, name) => {
+    addCollum(child, type, name);
 }
 
 const baseObject = (id) =>{
@@ -45,11 +46,12 @@ const baseObject = (id) =>{
   </div>`;
 }
 
-const addCollum = (child, type) => {
+const addCollum = (child, type, name) => {
     let newElement = document.createElement('span');
     newElement.innerHTML += 
     `<div class="objects">
         <div class="collum">
+        <h1 id="name">${name}</h1>
         <p id="type">${type}</p>
         <input id="value"></input>
         </div>
@@ -68,7 +70,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
     prompt.initialize();
     prompt.components.initializeCollum(()=>{
         console.log(prompt.components.getCollumOption());
-        createCollum(childs[childs.length - 1].childNodes[0], prompt.components.getCollumOption());
+        createCollum(childs[childs.length - 1].childNodes[0], prompt.components.getCollumOption(), prompt.components.getCollumName());
     })
     getAllButtons();
 })
@@ -96,6 +98,11 @@ function getAllButtons(){
     saveFileObj?.addEventListener('click', ()=>{
         saveFile();
     })
+
+    let reloadObj = document.getElementById('reload');
+    reloadObj?.addEventListener('click', ()=>{
+        loadSaved();
+    })
 }
 
 function saveFile(){
@@ -106,10 +113,11 @@ function saveFile(){
         var o = new Obj(id.innerHTML);
         
         spans.forEach(span =>{
+            var nameValue = span.querySelector('#name');
             var typeValue = span.querySelector('#type');
             var valueValue = span.querySelector('#value');
-            console.log(typeValue.innerHTML+valueValue.value);
-            var spanObj = {type:typeValue.innerHTML,value:valueValue.value};
+            console.log(nameValue.innerHTML+typeValue.innerHTML+valueValue.value);
+            var spanObj = {name:nameValue.innerHTML, type:typeValue.innerHTML,value:valueValue.value};
             
             o.values.push(spanObj);
         })
@@ -128,4 +136,17 @@ function saveFile(){
     fs.writeFile('testifle.bdata', json, function(err){
         if(err)return console.log(err);
     });
+}
+
+ipcRenderer.on('path-message', function(evt, message){
+    loadSaved(message.path[0]);
+})
+
+function loadSaved(path){;
+    console.log(path);
+    fs.readFile(path, (err,data)=>{
+        if(err)throw err;
+        let json = JSON.parse(data);
+        console.log(json);
+    })
 }

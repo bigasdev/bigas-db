@@ -1,4 +1,6 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu, MenuItem, dialog } = require('electron');
+const Main = require('electron/main');
+const creation = require('../src/handlePrompts.js');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -25,6 +27,33 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 };
+
+const menu = new Menu();
+menu.append(new MenuItem({
+  label:'Open file',
+  submenu:[{
+    label:'Open file',
+    role:'dir',
+    click: () => {
+      openFileDialog();
+    }
+  }]
+}))
+
+Menu.setApplicationMenu(menu);
+
+const openFileDialog = () =>{
+  dialog.showOpenDialog(BrowserWindow.getFocusedWindow(),{
+    properties: ['openFile'],
+    filters:[{name:'Custom File Type', extensions: ['bdata']}]
+  }).then(result=>{
+    console.log(result.canceled);
+    console.log(result.filePaths);
+    BrowserWindow.getFocusedWindow().webContents.send('path-message', {path: result.filePaths});
+  }).catch(err=>{
+    console.log(err);
+  })
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
