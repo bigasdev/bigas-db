@@ -9,9 +9,7 @@ p{
   font-weight: 500;
   font-size: 14px;
 }
-span{
-  cursor: pointer;
-}
+
 button{
   font-family: 'Segoe UI';
   font-size: 16px;
@@ -99,6 +97,9 @@ input{
   width: 10rem;
   background-color: rgb(117, 75, 75);
   border: 1px solid black;
+}
+.base-object .collum:hover{
+  cursor: pointer;
 }
 .base-object span{
   border: 1px solid black;

@@ -47,10 +47,15 @@ const baseObject = (id) =>{
 }
 
 const addCollum = (child, type, name, value) => {
+    var today = new Date();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + internalCounter;
+
     let newElement = document.createElement('span');
+    newElement.dataset
     newElement.innerHTML += 
     `<div class="objects">
-        <div class="collum">
+        <div class="collum" id='${name+time}'">
+        <p onclick="getCollum('${name+time}')">DELETE</p>
         <h1 id="name">${name}</h1>
         <p id="type">${type}</p>
         <input id="value" placeholder="${value}"></input>
@@ -58,10 +63,12 @@ const addCollum = (child, type, name, value) => {
     </div>`;
 
     child.appendChild(newElement);
+    internalCounter++;
 }
 
 let mainId;
 let childs = [];
+let internalCounter = 0;
 
 window.addEventListener('DOMContentLoaded', ()=>{
     mainId = document.getElementById('main');
@@ -114,6 +121,7 @@ function saveFile(){
         
         spans.forEach(span =>{
             var nameValue = span.querySelector('#name');
+            if(nameValue === undefined || nameValue === null)return;
             var typeValue = span.querySelector('#type');
             var valueValue = span.querySelector('#value');
             console.log(nameValue.innerHTML+typeValue.innerHTML+valueValue.value);
@@ -156,4 +164,11 @@ function loadSaved(path){;
             })
         })
     })
+}
+function getCollum(collum){
+    var e = document.getElementById(collum);
+    e.remove();
+    //e.style.display = 'none';
+    //collum.style.display = 'none';
+    console.log(e);
 }
