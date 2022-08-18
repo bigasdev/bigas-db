@@ -55,10 +55,10 @@ const addCollum = (child, type, name, value) => {
     newElement.innerHTML += 
     `<div class="objects">
         <div class="collum" id='${name+time}'">
-        <p onclick="getCollum('${name+time}')">DELETE</p>
+        <p class="delete" onclick="getCollum('${name+time}')">❌</p>
         <h1 id="name">${name}</h1>
         <p id="type">${type}</p>
-        <input id="value" placeholder="${value}"></input>
+        <input id="value" placeholder="${value}" value="${value}"></input>
         </div>
     </div>`;
 
@@ -148,6 +148,10 @@ function saveFile(){
 
 ipcRenderer.on('path-message', function(evt, message){
     loadSaved(message.path[0]);
+})
+
+ipcRenderer.on('save-file', function(evt,message){
+    saveFile();
 })
 
 function loadSaved(path){;

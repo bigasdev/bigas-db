@@ -19,7 +19,7 @@ button{
 }
 /* Main page */
 .create-stuff{
-  background-color: #39CCCC;
+  background-color: #FF851B;
   width: 100%;
   height: auto;
   position: fixed;
@@ -47,7 +47,7 @@ button{
   text-align: center;
   width: 25rem;
   padding: 5px 5px 5px 5px;
-  background-color: rgb(36, 151, 151);
+  background-color: #FF851B;
   box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
 }
 .collum-prompt .prompt-box input{
@@ -76,6 +76,14 @@ input{
   grid-auto-flow: column;
   padding: 4px 2px 1px 1px;
 }
+.base-object .objects .delete{
+  position: fixed;
+  margin-top: .1rem;
+  margin-left: 9rem;
+}
+.base-object .objects .delete:hover{
+  border: 1px solid white;
+}
 .base-object .objects h1{
   margin: 0rem;
   font-size: 14px;
@@ -88,14 +96,14 @@ input{
   height: 20px;
   text-align: center;
   width: 10rem;
-  background-color: rgb(117, 75, 75);
+  background-color: #FF851B;
   border: 1px solid black;
 }
 .base-object .collum{
   height: 20px;
   text-align: center;
   width: 10rem;
-  background-color: rgb(117, 75, 75);
+  background-color: #FF851B;
   border: 1px solid black;
 }
 .base-object .collum:hover{

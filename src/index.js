@@ -14,12 +14,15 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    icon: '../assets/icon.ico',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
       preload: path.join(__dirname, 'preload.js'),
     },
   });
+
+  mainWindow.setIcon(__dirname + '/assets/icon.ico');
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
@@ -38,7 +41,15 @@ menu.append(new MenuItem({
     click: () => {
       openFileDialog();
     }
-  },{
+  },
+  {
+    label:'Save file',
+    accelerator: process.platform === 'darwin' ? 'Ctrl+Cmd+S' : 'Ctrl+S',
+    click: () =>{
+      BrowserWindow.getFocusedWindow().webContents.send('save-file');
+    }
+  },
+  {
     label:'Reload',
     accelerator: process.platform === 'darwin' ? 'Ctrl+Cmd+R' : 'Ctrl+R',
     click: () => {

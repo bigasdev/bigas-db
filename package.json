@@ -2,6 +2,7 @@
   "name": "bigas-db",
   "productName": "bigas-db",
   "version": "1.0.0",
+  "icon": "src/assets/icon.ico",
   "description": "My Electron application description",
   "main": "src/index.js",
   "scripts": {
