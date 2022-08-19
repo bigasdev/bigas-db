@@ -1,6 +1,7 @@
 const prompt = require('../src/handlePrompts.js');
 const { ipcRenderer } = require('electron');
 const fs = require('fs');
+const { error } = require('console');
 
 class Obj{
     constructor(id, values = []){
@@ -69,6 +70,7 @@ const addCollum = (child, type, name, value) => {
 let mainId;
 let childs = [];
 let internalCounter = 0;
+let currentPath = '';
 
 window.addEventListener('DOMContentLoaded', ()=>{
     mainId = document.getElementById('main');
@@ -80,6 +82,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
         createCollum(childs[childs.length - 1].childNodes[0], prompt.components.getCollumOption(), prompt.components.getCollumName());
     })
     getAllButtons();
+    readLocal();
+    console.log(currentPath);
 })
 
 function getAllButtons(){
@@ -141,13 +145,15 @@ function saveFile(){
     })
     var json = JSON.stringify(objs);
     console.log(json);
-    fs.writeFile('testifle.bdata', json, function(err){
+    console.log(currentPath);
+    fs.writeFile(currentPath, json, function(err){
         if(err)return console.log(err);
     });
 }
 
 ipcRenderer.on('path-message', function(evt, message){
     loadSaved(message.path[0]);
+    saveLocal(message.path[0]);
 })
 
 ipcRenderer.on('save-file', function(evt,message){
@@ -175,4 +181,21 @@ function getCollum(collum){
     //e.style.display = 'none';
     //collum.style.display = 'none';
     console.log(e);
+}
+
+function saveLocal(path){
+    fs.writeFile('settings.txt', path, function(err){
+        if(err)return console.log(err);
+    });
+}
+
+function readLocal(){
+    fs.readFile('./settings.txt', 'utf8', (err, data)=>{
+        if(err)throw err;
+        console.log(data);
+        currentPath = data;
+        loadSaved(data);
+        return data;
+    })
+    
 }

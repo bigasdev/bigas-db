@@ -12,6 +12,25 @@
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
+  "build": {
+    "win": {
+      "target": "nsis",
+      "signingHashAlgorithms": [
+        "sha1"
+      ],
+      "certificateFile": "",
+      "certificatePassword": "",
+      "files": [
+        "!gruntfile.js",
+        "!README.md",
+        "!notarize.js",
+        "!.env",
+        "!minify.js",
+        "!.git/*",
+        "!resources/mac/*"
+      ]
+    }
+  },
   "keywords": [],
   "author": {
     "name": "gustavo domingues",
@@ -41,6 +60,12 @@
         {
           "name": "@electron-forge/maker-rpm",
           "config": {}
+        },
+        {
+          "name": "@rabbitholesyndrome/electron-forge-maker-portable",
+          "config": {
+            "appId": "com.bigas.db"
+          }
         }
       ]
     }
@@ -55,6 +80,8 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.65",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.65",
     "@electron-forge/maker-zip": "^6.0.0-beta.65",
-    "electron": "20.0.2"
+    "@rabbitholesyndrome/electron-forge-maker-portable": "^0.1.1",
+    "electron": "20.0.2",
+    "electron-prebuilt-compile": "^8.2.0"
   }
 }
