@@ -11,16 +11,23 @@ class Obj{
 }
 
 const createLine = (id) => {
-    let newElement = document.createElement('span');
+    let newElement = document.createElement('div');
+    newElement.className = "span-object";
     newElement.innerHTML = baseObject(id);
     childs.push(newElement);
-    console.log(newElement.childNodes[0].childNodes);
-    
+    console.log(newElement.childNodes);
 
+    var id = childs.length - 1;
+    
     newElement.childNodes[0].childNodes[1].addEventListener('input', ()=>{
         var x = newElement.querySelector('#text').value;
         var id = newElement.querySelector('#id');
         id.textContent = x;
+    })
+
+    newElement.childNodes[2].addEventListener('click', ()=>{
+        currentLine = id;
+        openCollumPrompt();
     })
 
     mainId.appendChild(newElement);
@@ -38,13 +45,16 @@ const createCollum = (child, type, name, value) => {
 
 const baseObject = (id) =>{
     return `<div class="base-object">
-    <div class="default-collum">
-      <p id="id">${id}</p>
-      <div class="text-area">
-        <input type="text" id="text">
-      </div>
+        <div class="default-collum">
+        <p id="id">${id}</p>
+        <div class="text-area">
+            <input type="text" id="text">
+        </div>
+        </div>
     </div>
-  </div>`;
+    <div class="create-collum">
+        <button class="collum-button">➕ Add collum</button>
+    </div>`;
 }
 
 const addCollum = (child, type, name, value) => {
@@ -71,6 +81,7 @@ let mainId;
 let childs = [];
 let internalCounter = 0;
 let currentPath = '';
+let currentLine = 0;
 
 window.addEventListener('DOMContentLoaded', ()=>{
     mainId = document.getElementById('main');
@@ -79,12 +90,18 @@ window.addEventListener('DOMContentLoaded', ()=>{
     prompt.initialize();
     prompt.components.initializeCollum(()=>{
         console.log(prompt.components.getCollumOption());
-        createCollum(childs[childs.length - 1].childNodes[0], prompt.components.getCollumOption(), prompt.components.getCollumName());
+        createCollum(childs[currentLine].childNodes[0], prompt.components.getCollumOption(), prompt.components.getCollumName());
     })
     getAllButtons();
     readLocal();
     console.log(currentPath);
 })
+
+function openCollumPrompt(){
+    var promptObj = prompt.components.getCollum();
+    promptObj.style.display = 'block';
+    promptObj.style.pointerEvents = 'all';
+}
 
 function getAllButtons(){
     let createLineObj = document.getElementById('create-line');
@@ -99,9 +116,7 @@ function getAllButtons(){
 
     let createCollumObj = document.getElementById('create-collum');
     createCollumObj?.addEventListener('click', ()=>{
-        var promptObj = prompt.components.getCollum();
-        promptObj.style.display = 'block';
-        promptObj.style.pointerEvents = 'all';
+        openCollumPrompt();
         //createCollum(childs[childs.length - 1].childNodes[0]);
     })
 
@@ -146,6 +161,9 @@ function saveFile(){
     var json = JSON.stringify(objs);
     console.log(json);
     console.log(currentPath);
+    if(currentPath === ''){
+        currentPath = "./file.bdata";
+    }
     fs.writeFile(currentPath, json, function(err){
         if(err)return console.log(err);
     });
@@ -191,7 +209,10 @@ function saveLocal(path){
 
 function readLocal(){
     fs.readFile('./settings.txt', 'utf8', (err, data)=>{
-        if(err)throw err;
+        if(err){
+            createLine('001');
+            throw err;
+        }
         console.log(data);
         currentPath = data;
         loadSaved(data);

@@ -60,18 +60,11 @@
         {
           "name": "@electron-forge/maker-rpm",
           "config": {}
-        },
-        {
-          "name": "@rabbitholesyndrome/electron-forge-maker-portable",
-          "config": {
-            "appId": "com.bigas.db"
-          }
         }
       ]
     }
   },
   "dependencies": {
-    "electron-forge": "^5.2.4",
     "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {
@@ -82,6 +75,6 @@
     "@electron-forge/maker-zip": "^6.0.0-beta.65",
     "@rabbitholesyndrome/electron-forge-maker-portable": "^0.1.1",
     "electron": "20.0.2",
-    "electron-prebuilt-compile": "^8.2.0"
+    "electron-forge": "^5.2.4"
   }
 }

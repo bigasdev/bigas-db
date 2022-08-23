@@ -67,6 +67,7 @@ const openFileDialog = () =>{
   }).then(result=>{
     console.log(result.canceled);
     console.log(result.filePaths);
+    BrowserWindow.getFocusedWindow().reload();
     BrowserWindow.getFocusedWindow().webContents.send('path-message', {path: result.filePaths});
   }).catch(err=>{
     console.log(err);
