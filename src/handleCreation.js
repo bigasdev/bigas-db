@@ -214,10 +214,13 @@ function saveLocal(path){
 function readLocal(){
     fs.readFile('./settings.txt', 'utf8', (err, data)=>{
         if(err){
+            fs.writeFile('settings.txt', process.cwd()+'/file.bdata', function(err){
+                if(err)throw err;
+            })
             createLine('001');
             throw err;
         }
-        console.log(data);
+        console.log(data);  
         currentPath = data;
         loadSaved(data);
         return data;
