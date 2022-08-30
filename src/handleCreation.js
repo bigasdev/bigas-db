@@ -48,6 +48,10 @@ const baseObject = (id) =>{
         <div class="default-collum">
         <p id="id">${id}</p>
         <div class="text-area">
+            <select name="type" id="obj-type" style="height:40px;" multiple>
+                <option value="character">Entity</option>
+                <option value="item">Item</option>
+            </select>
             <input type="text" id="text">
         </div>
         </div>

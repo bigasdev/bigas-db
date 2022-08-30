@@ -1,25 +1,41 @@
+:root{
+  --pink:#8F6DDE;
+  --orange:#F9E698;
+}
+
+@font-face {
+  font-family: 'Expose-Regular';
+  src: url('fonts/Expose-Regular.woff2') format('woff2'),
+       url('fonts/Expose-Regular.woff') format('woff'),
+       url('fonts/Expose-Regular.ttf') format('truetype');
+       font-weight: 700;
+       font-display: swap;
+       font-style: normal;
+}
+
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', Helvetica,
-    Arial, sans-serif;
+  font-family: 'Expose-Regular';
   margin: auto;
 }
 p{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Expose-Regular';
   margin: 0rem;
   font-weight: 500;
   font-size: 14px;
 }
 
 button{
-  font-family: 'Segoe UI';
+  font-family: 'Expose-Regular';
   font-size: 16px;
-  border: 1px solid black;
+  background-color: var(--orange);
+  border: 0px solid black;
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 /* Main page */
 .create-stuff{
-  background-color: #FF851B;
+  background-color: var(--pink);
   width: 100%;
   height: auto;
   position: fixed;
@@ -48,15 +64,15 @@ button{
   text-align: center;
   width: 25rem;
   padding: 5px 5px 5px 5px;
-  background-color: #FF851B;
+  background-color: var(--pink);
   box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
 }
 .collum-prompt .prompt-box input{
   width: 98%;
 }
 .collum-prompt .prompt-box h1{
-  font-family: "Segoe UI";
-  color: white;
+  font-family: 'Expose-Regular';
+  color: var(--orange);
 }
 
 /* Components */
@@ -94,20 +110,20 @@ input{
 }
 .base-object .objects p{
   font-size: 10px;
-  color: rgb(110, 110, 110);
+  color: var(--orange);
 }
 .base-object .default-collum{
   height: 20px;
   text-align: center;
   width: 10rem;
-  background-color: #FF851B;
+  background-color: var(--pink);
   border: 1px solid black;
 }
 .base-object .collum{
   height: 20px;
   text-align: center;
   width: 10rem;
-  background-color: #FF851B;
+  background-color: var(--pink);
   border: 1px solid black;
 }
 .base-object .collum:hover{
