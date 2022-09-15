@@ -3,6 +3,7 @@ const fs = require('fs');
 
 let canvas;
 let textArea;
+let openFile;
 let ctx;
 
 let objectXIncrease = 0;
@@ -83,6 +84,8 @@ const loadFile = (file) => {
         json[0].Creatures.forEach(c =>{
             objects.menus[1].amount++;
         })
+        var t = document.getElementById('file-selection-text');
+        t.innerHTML = json[0].Name;
         textArea.value += json;
         drawMenus();
         console.log(json);
@@ -126,8 +129,14 @@ function addCanvasBinds(){
     canvas.addEventListener("click", (e)=>{
         interactables.forEach(i =>{
             if(isIntersect(mousePos, i)){
+                textArea.value = "";
                 drawHover(i.position.x, i.position.y, i);
-                console.log(i.at);
+                if(i.type === "item"){
+                    textArea.value += JSON.stringify(json[0].Items[i.at]);
+                }else if(i.type === "creature"){
+                    textArea.value += JSON.stringify(json[0].Creatures[i.at]);
+                }
+                
             }
         })
     })
@@ -140,7 +149,7 @@ function start(){
     ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
 
-    var openFile = document.getElementById('file-selection');
+    openFile = document.getElementById('file-selection');
     openFile.addEventListener("click", ()=>{
         console.log('clicking');
 

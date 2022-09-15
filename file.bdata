@@ -1,32 +1,32 @@
 [{
     "Name":"Naru-Test",
     "Items":[{
-        "Name":"X",
+        "Name":"Bigas Sword",
         "Description":"X",
         "Sprite":"X"
     },
     {
-        "Name":"X",
+        "Name":"Ribas Leck",
         "Description":"X",
         "Sprite":"X"
     }],
     "Creatures":[{
-        "Name":"X",
+        "Name":"Rober",
         "Description":"X",
         "Sprite":"X"
     },
     {
-        "Name":"X",
+        "Name":"Bill",
         "Description":"X",
         "Sprite":"X"
     },
     {
-        "Name":"X",
+        "Name":"Gates",
         "Description":"X",
         "Sprite":"X"
     },
     {
-        "Name":"X",
+        "Name":"Ribas",
         "Description":"X",
         "Sprite":"X"
     }]
