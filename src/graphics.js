@@ -1,8 +1,11 @@
+const { ipcRenderer } = require('electron');
+
 let canvas;
 let ctx;
 
 let objectXIncrease = 0;
 let objectYIncrease = 0;
+
 
 const maxRows = 3;
 
@@ -108,14 +111,22 @@ function start(){
     ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
 
+    var openFile = document.getElementById('file-selection');
+    openFile.addEventListener("click", ()=>{
+        console.log('clicking');
+
+        var result = ipcRenderer.invoke('open-file');
+    })
+
     createImage(84, 143, '../src/assets/menus.png', 50, 150, 2);
     createImage(193, 141, '../src/assets/textEditor.png', 236, 155, 2);
     
     setTimeout(()=>{
-        drawMenus();
+        //drawMenus();
         addCanvasBinds();
     }, 300);
 }
+
 
 const createImage = (width, height, src, x,y, size = 1) =>{
     var image = new Image(width,height);

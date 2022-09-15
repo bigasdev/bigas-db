@@ -160,6 +160,9 @@ textarea{
   position: absolute;
   z-index: 99;
 }
+.file-selection:hover{
+  cursor: pointer;
+}
 
 .file-selection p{
   font-family: 'Monocraft';

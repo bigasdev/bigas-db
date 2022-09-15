@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, MenuItem, dialog } = require('electron');
+const { app, BrowserWindow, Menu, MenuItem, dialog, ipcMain } = require('electron');
 const Main = require('electron/main');
 const creation = require('../src/handlePrompts.js');
 const path = require('path');
@@ -73,6 +73,20 @@ const openFileDialog = () =>{
     console.log(err);
   })
 }
+
+ipcMain.handle('open-file', (event,args)=>{
+  console.log('why');
+  dialog.showOpenDialog(BrowserWindow.getFocusedWindow(),{
+    properties: ['openFile'],
+    filters:[{name:'Custom File Type', extensions: ['bdata']}]
+  }).then(result=>{
+    console.log(result.canceled);
+    console.log(result.filePaths);
+    return result.filePaths;
+  }).catch(err=>{
+    console.log(err);
+  })
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
