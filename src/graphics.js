@@ -24,7 +24,10 @@ const objects = {
 }
 
 const interactables = [];
-let hover;
+let hover ={
+    x:5,
+    y:5
+};
 let mousePos;
 class Interactable{
     constructor(img, radius, position, callback){
@@ -39,6 +42,17 @@ class Interactable{
 function isIntersect(point, element){
     var value = Math.sqrt(point.x-element.position.x) < element.radius && Math.sqrt(point.y-element.position.y) < element.radius;
     return value;
+}
+
+const drawHover = (x,y) => {
+    if(hover!=null){
+        ctx.clearRect(hover.x,hover.y, 44, 32);
+    }
+    var image = new Image(22, 16);
+    image.src = '../src/assets/hover.png';
+    hover.x = x;
+    hover.y = y;
+    image.onload = () => ctx.drawImage(image, x, y, 44, 32);
 }
 
 const drawMenus = () => {
@@ -78,8 +92,7 @@ function addCanvasBinds(){
     canvas.addEventListener("click", (e)=>{
         interactables.forEach(i =>{
             if(isIntersect(mousePos, i)){
-                hover.x = i.x;
-                hover.y = i.y;
+                drawHover(i.position.x, i.position.y);
                 console.log('clicked on this obj!')
             }
         })
@@ -93,7 +106,6 @@ function start(){
     ctx.imageSmoothingEnabled = false;
 
     createImage(84, 143, '../src/assets/menus.png', 50, 150, 2);
-    hover = createImage(22,16, '../src/assets/hover.png', 50, 1250, 2);
     
     drawMenus();
     addCanvasBinds();
