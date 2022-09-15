@@ -149,4 +149,5 @@ textarea{
   font-family: 'Monocraft';
   font-weight: 600;
   border: none;
+  outline: none;
 }
