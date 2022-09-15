@@ -15,13 +15,13 @@ const objects = {
     menus: [
         {
             "name": "items",
-            "amount": 5,
+            "amount": 0,
             "x": 16,
             "y": 215
         },
         {
             "name": "creatures",
-            "amount": 5,
+            "amount": 0,
             "x" : 16,
             "y" : 338
         }
@@ -71,7 +71,14 @@ const loadFile = (file) => {
     fs.readFile(file, (err,data)=>{
         if(err)throw err;
         var json = JSON.parse(data);
-        textArea.value += JSON.stringify(json);
+        json[0].Items.forEach(i =>{
+            objects.menus[0].amount++;
+        })
+        json[0].Creatures.forEach(c =>{
+            objects.menus[1].amount++;
+        })
+        textArea.value += json;
+        drawMenus();
         console.log(json);
     });
 }

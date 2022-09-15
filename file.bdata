@@ -1,11 +1,33 @@
 [{
-    "Name":"X",
-    "Description":"X",
-    "Sprite":"X"
-},
-{
-    "Name":"Y",
-    "Description":"Y",
-    "Sprite":"Y"
+    "Items":[{
+        "Name":"X",
+        "Description":"X",
+        "Sprite":"X"
+    },
+    {
+        "Name":"X",
+        "Description":"X",
+        "Sprite":"X"
+    }],
+    "Creatures":[{
+        "Name":"X",
+        "Description":"X",
+        "Sprite":"X"
+    },
+    {
+        "Name":"X",
+        "Description":"X",
+        "Sprite":"X"
+    },
+    {
+        "Name":"X",
+        "Description":"X",
+        "Sprite":"X"
+    },
+    {
+        "Name":"X",
+        "Description":"X",
+        "Sprite":"X"
+    }]
 }
 ]
