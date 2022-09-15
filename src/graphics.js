@@ -1,6 +1,8 @@
 const { ipcRenderer } = require('electron');
+const fs = require('fs');
 
 let canvas;
+let textArea;
 let ctx;
 
 let objectXIncrease = 0;
@@ -66,7 +68,12 @@ ipcRenderer.on('open-file', function(evt, message){
 })
 
 const loadFile = (file) => {
-    console.log(file);;
+    fs.readFile(file, (err,data)=>{
+        if(err)throw err;
+        var json = JSON.parse(data);
+        textArea.value += JSON.stringify(json);
+        console.log(json);
+    });
 }
 
 const drawMenus = () => {
@@ -115,6 +122,7 @@ function addCanvasBinds(){
 
 function start(){
     canvas = document.getElementById('canvas');
+    textArea = document.getElementById('editor');
     console.log(canvas);
     ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;

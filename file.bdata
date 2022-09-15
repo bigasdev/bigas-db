@@ -1,1 +1,11 @@
-[{"id":"Charcter X","values":[{"name":"Health","type":"string","value":"150"}]},{"id":"Bigas","values":[{"name":"50","type":"float","value":"test"}]}]
+[{
+    "Name":"X",
+    "Description":"X",
+    "Sprite":"X"
+},
+{
+    "Name":"Y",
+    "Description":"Y",
+    "Sprite":"Y"
+}
+]
