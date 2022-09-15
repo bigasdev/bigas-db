@@ -111,8 +111,10 @@ function start(){
     createImage(84, 143, '../src/assets/menus.png', 50, 150, 2);
     createImage(193, 141, '../src/assets/textEditor.png', 236, 155, 2);
     
-    drawMenus();
-    addCanvasBinds();
+    setTimeout(()=>{
+        drawMenus();
+        addCanvasBinds();
+    }, 300);
 }
 
 const createImage = (width, height, src, x,y, size = 1) =>{
