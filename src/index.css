@@ -140,3 +140,6 @@ input{
   height: 1.5em;
   margin-bottom: .1rem;
 }
+canvas{
+  background-color: #1b1b1b;
+}
