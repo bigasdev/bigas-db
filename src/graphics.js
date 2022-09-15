@@ -61,6 +61,14 @@ const drawHover = (x,y, interactable) => {
     image.onload = () => ctx.drawImage(image, x, y, 44, 32);
 }
 
+ipcRenderer.on('open-file', function(evt, message){
+    loadFile(message.path[0]);
+})
+
+const loadFile = (file) => {
+    console.log(file);;
+}
+
 const drawMenus = () => {
     objects.menus.forEach(o => {
         var collum = 0;

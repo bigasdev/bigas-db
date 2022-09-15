@@ -82,6 +82,7 @@ ipcMain.handle('open-file', (event,args)=>{
   }).then(result=>{
     console.log(result.canceled);
     console.log(result.filePaths);
+    BrowserWindow.getFocusedWindow().webContents.send('open-file', {path: result.filePaths});
     return result.filePaths;
   }).catch(err=>{
     console.log(err);
