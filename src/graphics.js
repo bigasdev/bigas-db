@@ -15,18 +15,22 @@ const objects = {
     menus: [
         {
             "name": "items",
+            "type": "item",
             "amount": 0,
             "x": 16,
             "y": 215
         },
         {
             "name": "creatures",
+            "type": "creature",
             "amount": 0,
             "x" : 16,
             "y" : 338
         }
     ]
 }
+
+let json;
 
 const interactables = [];
 let hover ={
@@ -35,7 +39,9 @@ let hover ={
 };
 let mousePos;
 class Interactable{
-    constructor(imgPath, img, radius, position, callback){
+    constructor(type,at, imgPath, img, radius, position, callback){
+        this.type = type;
+        this.at = at;
         this.imgPath = imgPath;
         this.img = img;
         this.radius = radius;
@@ -54,7 +60,7 @@ const drawHover = (x,y, interactable) => {
     if(hover!=null){
         ctx.clearRect(hover.x,hover.y, 44, 32);
         if(hover.x != 5 && hover.y != 5)
-            createImageInteractable(interactable.radius.x, interactable.radius.y, interactable.imgPath, hover.x, hover.y);
+            createImageInteractable(interactable.type, interactable.at, interactable.radius.x, interactable.radius.y, interactable.imgPath, hover.x, hover.y);
     }
     var image = new Image(22, 16);
     image.src = '../src/assets/hover.png';
@@ -70,7 +76,7 @@ ipcRenderer.on('open-file', function(evt, message){
 const loadFile = (file) => {
     fs.readFile(file, (err,data)=>{
         if(err)throw err;
-        var json = JSON.parse(data);
+        json = JSON.parse(data);
         json[0].Items.forEach(i =>{
             objects.menus[0].amount++;
         })
@@ -88,7 +94,7 @@ const drawMenus = () => {
         var collum = 0;
         for (let i = 0; i < o.amount; i++) {
             objectXIncrease += 46;
-            createImageInteractable(22,16,'../src/assets/field.png', o.x + objectXIncrease, o.y + objectYIncrease, 2);
+            createImageInteractable(o.type, i, 22,16,'../src/assets/field.png', o.x + objectXIncrease, o.y + objectYIncrease, 2);
             collum++;
             if(collum >= maxRows){
                 objectXIncrease = 0;
@@ -121,7 +127,7 @@ function addCanvasBinds(){
         interactables.forEach(i =>{
             if(isIntersect(mousePos, i)){
                 drawHover(i.position.x, i.position.y, i);
-                console.log('clicked on this obj!')
+                console.log(i.at);
             }
         })
     })
@@ -157,11 +163,11 @@ const createImage = (width, height, src, x,y, size = 1) =>{
     image.onload = () => ctx.drawImage(image, x, y, width*size, height*size);
     return image;
 }
-const createImageInteractable = (width, height, src, x,y, size = 1) =>{
+const createImageInteractable = (type, at, width, height, src, x,y, size = 1) =>{
     var image = new Image(width,height);
     image.src = src;
     image.onload = () => ctx.drawImage(image, x, y, width*size, height*size);
-    var i = new Interactable(src, image, {x:width*size, y:height*size}, {x:x, y:y}, ()=>{
+    var i = new Interactable(type, at, src, image, {x:width*size, y:height*size}, {x:x, y:y}, ()=>{
         console.log(here);
     })
     interactables[interactables.length + 1] = i;
