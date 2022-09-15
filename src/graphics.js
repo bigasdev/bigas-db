@@ -30,7 +30,8 @@ let hover ={
 };
 let mousePos;
 class Interactable{
-    constructor(img, radius, position, callback){
+    constructor(imgPath, img, radius, position, callback){
+        this.imgPath = imgPath;
         this.img = img;
         this.radius = radius;
         this.position = position;
@@ -40,13 +41,15 @@ class Interactable{
 }
 
 function isIntersect(point, element){
-    var value = Math.sqrt(point.x-element.position.x) < element.radius && Math.sqrt(point.y-element.position.y) < element.radius;
+    var value = point.x > element.position.x && point.x < (element.position.x + element.radius.x) && point.y > element.position.y && point.y < (element.position.y + element.radius.y);
     return value;
 }
 
-const drawHover = (x,y) => {
+const drawHover = (x,y, interactable) => {
     if(hover!=null){
         ctx.clearRect(hover.x,hover.y, 44, 32);
+        if(hover.x != 5 && hover.y != 5)
+            createImageInteractable(interactable.radius.x, interactable.radius.y, interactable.imgPath, hover.x, hover.y);
     }
     var image = new Image(22, 16);
     image.src = '../src/assets/hover.png';
@@ -92,7 +95,7 @@ function addCanvasBinds(){
     canvas.addEventListener("click", (e)=>{
         interactables.forEach(i =>{
             if(isIntersect(mousePos, i)){
-                drawHover(i.position.x, i.position.y);
+                drawHover(i.position.x, i.position.y, i);
                 console.log('clicked on this obj!')
             }
         })
@@ -121,7 +124,7 @@ const createImageInteractable = (width, height, src, x,y, size = 1) =>{
     var image = new Image(width,height);
     image.src = src;
     image.onload = () => ctx.drawImage(image, x, y, width*size, height*size);
-    var i = new Interactable(image, 8, {x:x, y:y}, ()=>{
+    var i = new Interactable(src, image, {x:width*size, y:height*size}, {x:x, y:y}, ()=>{
         console.log(here);
     })
     interactables[interactables.length + 1] = i;
